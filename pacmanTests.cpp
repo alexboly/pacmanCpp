@@ -12,31 +12,31 @@ enum class KindOfToken : char {
     Pacman = '>'
 };
 
-const Line before(const Line& line, const char& element){
-    const int position = line.find(element);
+const Line before(const Line& line, const KindOfToken& element){
+    const int position = line.find((char)element);
     return line.substr(0, position);
 }
 
 auto beforePacman = [](const Line& line){
-    return before(line, '>');
+    return before(line, KindOfToken::Pacman);
 };
 
-const Line after(const Line& line, const char& element){
-    const int position = line.find(element);
+const Line after(const Line& line, const KindOfToken& element){
+    const int position = line.find((char)element);
     return line.substr(position + 1);
 }
 
 auto afterPacman = [](const Line& line){
-    return after(line, '>');
+    return after(line, KindOfToken::Pacman);
 };
 
 const Line tick(const Line& initialLine){
     const Line afterAfterMove = afterPacman(initialLine).substr(1);
-    return beforePacman(initialLine) + ' ' + '>' + afterAfterMove;
+    return beforePacman(initialLine) + (char)KindOfToken::Empty + (char)KindOfToken::Pacman + afterAfterMove;
 }
 
 const Line dots(const int count){
-    vector<char> theDots(count, '.');
+    vector<char> theDots(count, (char)KindOfToken::Dot);
     return Line(theDots.begin(), theDots.end());
 }
 
