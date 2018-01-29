@@ -27,9 +27,14 @@ const string tick(const string& initialLine){
     return beforePacman(initialLine) + ' ' + '>' + afterAfterMove;
 }
 
+const string dots(const int count){
+    vector<char> theDots(count, '.');
+    return string(theDots.begin(), theDots.end());
+}
+
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
-    string lineBeforeMove =           "....>....";
-    string expectedLineAfterMove =    ".... >...";
+    string lineBeforeMove =           dots(4) + ">" + dots(4);
+    string expectedLineAfterMove =    dots(4) + " " +  ">" + dots(3);
 
     auto lineAfterMove = tick(lineBeforeMove);
 
