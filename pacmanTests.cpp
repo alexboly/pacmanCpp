@@ -40,7 +40,7 @@ const string dots(const int count){
 
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
     string lineBeforeMove =           dots(4) + (char)KindOfToken::Pacman + dots(4);
-    string expectedLineAfterMove =    dots(4) + (char)KindOfToken::Empty+  (char)KindOfToken::Pacman + dots(3);
+    string expectedLineAfterMove =    dots(4) + (char)KindOfToken::Empty + (char)KindOfToken::Pacman + dots(3);
 
     auto lineAfterMove = tick(lineBeforeMove);
 
