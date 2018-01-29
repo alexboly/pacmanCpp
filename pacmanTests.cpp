@@ -4,13 +4,17 @@
 
 using namespace std;
 
-typedef string Line;
-
 enum class KindOfToken : char {
     Empty = ' ',
     Dot = '.',
     Pacman = '>'
 };
+
+typedef string Line;
+
+const Line operator+(const Line& line, const KindOfToken& token){
+    return line + (char)token;
+}
 
 const Line before(const Line& line, const KindOfToken& element){
     const int position = line.find((char)element);
@@ -32,7 +36,7 @@ auto afterPacman = [](const Line& line){
 
 const Line tick(const Line& initialLine){
     const Line afterAfterMove = afterPacman(initialLine).substr(1);
-    return beforePacman(initialLine) + (char)KindOfToken::Empty + (char)KindOfToken::Pacman + afterAfterMove;
+    return beforePacman(initialLine) + KindOfToken::Empty + KindOfToken::Pacman + afterAfterMove;
 }
 
 const Line dots(const int count){
@@ -41,8 +45,8 @@ const Line dots(const int count){
 }
 
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
-    Line lineBeforeMove =           dots(4) + (char)KindOfToken::Pacman + dots(4);
-    Line expectedLineAfterMove =    dots(4) + (char)KindOfToken::Empty + (char)KindOfToken::Pacman + dots(3);
+    Line lineBeforeMove =           dots(4) + KindOfToken::Pacman + dots(4);
+    Line expectedLineAfterMove =    dots(4) + KindOfToken::Empty + KindOfToken::Pacman + dots(3);
 
     auto lineAfterMove = tick(lineBeforeMove);
 
