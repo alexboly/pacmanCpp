@@ -1,4 +1,4 @@
 pacmanTests: pacmanTests.cpp 
-	g++ -o pacmanTests pacmanTests.cpp -I.
+	g++ -std=c++17 -o pacmanTests pacmanTests.cpp -I.
 	./pacmanTests
 
