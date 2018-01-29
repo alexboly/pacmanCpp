@@ -1,0 +1,7 @@
+[
+    {
+        "command": "c++ -c -std=c++17 -o pacmanTests -I/home/alexb/work/designStudies/pacmanCpp /home/alexb/work/designStudies/pacmanCpp/pacmanTests.cpp",
+        "directory": "/home/alexb/work/designStudies/pacmanCpp",
+        "file": "/home/alexb/work/designStudies/pacmanCpp/pacmanTests.cpp"
+    }
+]
