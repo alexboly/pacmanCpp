@@ -4,6 +4,12 @@
 
 using namespace std;
 
+enum class KindOfToken : char {
+    Empty = ' ',
+    Dot = '.',
+    Pacman = '>'
+};
+
 const string before(const string& line, const char& element){
     const int position = line.find(element);
     return line.substr(0, position);
@@ -33,8 +39,8 @@ const string dots(const int count){
 }
 
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
-    string lineBeforeMove =           dots(4) + ">" + dots(4);
-    string expectedLineAfterMove =    dots(4) + " " +  ">" + dots(3);
+    string lineBeforeMove =           dots(4) + (char)KindOfToken::Pacman + dots(4);
+    string expectedLineAfterMove =    dots(4) + (char)KindOfToken::Empty+  (char)KindOfToken::Pacman + dots(3);
 
     auto lineAfterMove = tick(lineBeforeMove);
 
