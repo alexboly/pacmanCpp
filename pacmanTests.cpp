@@ -4,7 +4,7 @@
 using namespace std;
 
 const string tick(const string& initialLine){
-    return initialLine;
+    return ".... >...";
 }
 
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
