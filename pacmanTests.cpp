@@ -1,6 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,8 +18,8 @@ const Line operator+(const Line& line, const KindOfToken& token){
 }
 
 const Line before(const Line& line, const KindOfToken& element){
-    const int position = line.find((char)element);
-    return line.substr(0, position);
+    auto position = find(line.begin(), line.end(), (char)element);
+    return Line(line.begin(), position);
 }
 
 auto beforePacman = [](const Line& line){
@@ -26,8 +27,8 @@ auto beforePacman = [](const Line& line){
 };
 
 const Line after(const Line& line, const KindOfToken& element){
-    const int position = line.find((char)element);
-    return line.substr(position + 1);
+    auto position = find(line.begin(), line.end(), (char)element);
+    return Line(position + 1, line.end());
 }
 
 auto afterPacman = [](const Line& line){
