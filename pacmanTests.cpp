@@ -36,7 +36,8 @@ auto afterPacman = [](const Line& line){
 };
 
 const Line tick(const Line& initialLine){
-    const Line afterAfterMove = afterPacman(initialLine).substr(1);
+    const Line after = afterPacman(initialLine);
+    const Line afterAfterMove(after.begin() + 1, after.end());
     return beforePacman(initialLine) + KindOfToken::Empty + KindOfToken::Pacman + afterAfterMove;
 }
 
