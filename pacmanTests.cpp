@@ -11,11 +11,11 @@ enum class KindOfToken : char {
     Pacman = '>'
 };
 
-typedef vector<char> Line;
+typedef vector<KindOfToken> Line;
 
 const Line operator+(const Line& line, const KindOfToken& token){
     Line newLine(line);
-    newLine.push_back((char)token);
+    newLine.push_back(token);
     return newLine;
 }
 
@@ -30,7 +30,7 @@ const Line operator+(const Line& first, const Line& second){
 }
 
 const Line before(const Line& line, const KindOfToken& element){
-    auto position = find(line.begin(), line.end(), (char)element);
+    auto position = find(line.begin(), line.end(), element);
     return Line(line.begin(), position);
 }
 
@@ -39,7 +39,7 @@ auto beforePacman = [](const Line& line){
 };
 
 const Line after(const Line& line, const KindOfToken& element){
-    auto position = find(line.begin(), line.end(), (char)element);
+    auto position = find(line.begin(), line.end(), element);
     return Line(position + 1, line.end());
 }
 
@@ -54,8 +54,7 @@ const Line tick(const Line& initialLine){
 }
 
 const Line dots(const int count){
-    vector<char> theDots(count, (char)KindOfToken::Dot);
-    return Line(theDots.begin(), theDots.end());
+    return Line(count, KindOfToken::Dot);
 }
 
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
