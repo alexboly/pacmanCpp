@@ -58,6 +58,17 @@ const Line dots(const int count){
     return Line(count, KindOfToken::Dot);
 }
 
+const string to_string(const Line& line){
+    string value;
+    transform(
+            line.begin(), line.end(), value.begin(), 
+            [](const auto token) {
+                return (char)token;
+            }
+    );
+    return value;
+}
+
 TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
     Line lineBeforeMove =           dots(4) + KindOfToken::Pacman + dots(4);
     Line expectedLineAfterMove =    dots(4) + KindOfToken::Empty + KindOfToken::Pacman + dots(3);
@@ -65,4 +76,6 @@ TEST_CASE("pacman eats the dot on the right when it has dots on the right and it
     auto lineAfterMove = tick(lineBeforeMove);
 
     CHECK(lineAfterMove == expectedLineAfterMove);
+    cout << "Line before move: " << to_string(lineBeforeMove) << endl;
+    cout << " Line after move: " << to_string(lineAfterMove) << endl;
 }
