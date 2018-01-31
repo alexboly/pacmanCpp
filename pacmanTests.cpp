@@ -58,24 +58,42 @@ const Line dots(const int count){
     return Line(count, KindOfToken::Dot);
 }
 
+const char to_string(const KindOfToken& token){
+    return (char)token;
+}
+
 const string to_string(const Line& line){
     string value;
+    // This transform doesn't work as expected; it returns empty string
     transform(
-            line.begin(), line.end(), value.begin(), 
+            line.begin(), line.end(), value.begin(),
             [](const auto token) {
                 return (char)token;
             }
     );
+    cout << " to string: " << value << endl;
     return value;
 }
 
-TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
-    Line lineBeforeMove =           dots(4) + KindOfToken::Pacman + dots(4);
-    Line expectedLineAfterMove =    dots(4) + KindOfToken::Empty + KindOfToken::Pacman + dots(3);
+void propertyTest(const int dotsBefore, const int dotsAfter){
+     cout << "START for dots before: " << dotsBefore << " and dots after " << dotsAfter << endl;
+   Line lineBeforeMove =           dots(dotsBefore) + KindOfToken::Pacman + dots(dotsAfter);
+    Line expectedLineAfterMove =    dots(dotsBefore) + KindOfToken::Empty + KindOfToken::Pacman + dots(dotsAfter - 1);
 
     auto lineAfterMove = tick(lineBeforeMove);
 
     CHECK(lineAfterMove == expectedLineAfterMove);
-    cout << "Line before move: " << to_string(lineBeforeMove) << endl;
+
+    cout << " Line before move: " << to_string(lineBeforeMove) << endl;
     cout << " Line after move: " << to_string(lineAfterMove) << endl;
+    cout << "DONE for dots before: " << dotsBefore << " and dots after " << dotsAfter << endl;
+}
+
+TEST_CASE("pacman eats the dot on the right when it has dots on the right and it's oriented towards right"){
+    vector<int> dotsBefore({0, 1, 4});
+    vector<int> dotsAfter( {1, 1, 4});
+
+    for(int i = 0; i < dotsBefore.size(); ++i){
+        propertyTest(dotsBefore[i], dotsAfter[i]);
+    }
 }
