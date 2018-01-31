@@ -21,11 +21,7 @@ const Line operator+(const Line& line, const KindOfToken& token){
 
 const Line operator+(const Line& first, const Line& second){
     Line newLine(first);
-
-    for(auto iter = second.begin(); iter != second.end(); iter++){
-        newLine.push_back(*iter);
-    }
-
+    newLine.insert(newLine.end(), second.begin(), second.end());
     return newLine;
 }
 
@@ -50,7 +46,12 @@ auto afterPacman = [](const Line& line){
 const Line tick(const Line& initialLine){
     const Line after = afterPacman(initialLine);
     const Line afterAfterMove(after.begin() + 1, after.end());
-    return beforePacman(initialLine) + KindOfToken::Empty + KindOfToken::Pacman + afterAfterMove;
+    return (
+            beforePacman(initialLine) + 
+            KindOfToken::Empty + 
+            KindOfToken::Pacman + 
+            afterAfterMove
+           );
 }
 
 const Line dots(const int count){
