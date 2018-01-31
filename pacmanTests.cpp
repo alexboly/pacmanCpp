@@ -11,10 +11,22 @@ enum class KindOfToken : char {
     Pacman = '>'
 };
 
-typedef string Line;
+typedef vector<char> Line;
 
 const Line operator+(const Line& line, const KindOfToken& token){
-    return line + (char)token;
+    Line newLine(line);
+    newLine.push_back((char)token);
+    return newLine;
+}
+
+const Line operator+(const Line& first, const Line& second){
+    Line newLine(first);
+
+    for(auto iter = second.begin(); iter != second.end(); iter++){
+        newLine.push_back(*iter);
+    }
+
+    return newLine;
 }
 
 const Line before(const Line& line, const KindOfToken& element){
