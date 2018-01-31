@@ -58,26 +58,28 @@ const Line dots(const int count){
     return Line(count, KindOfToken::Dot);
 }
 
-const char to_string(const KindOfToken& token){
-    return (char)token;
-}
-
 const string to_string(const Line& line){
     string value;
-    // This transform doesn't work as expected; it returns empty string
-    transform(
+    value.reserve(line.size());
+    for(auto iter = line.begin(); iter != line.end(); ++iter){
+        value.push_back((char)*iter);
+    }
+
+    // This transform doesn't work as expected; it returns empty string, but data() and c_str() are set correctly. Rly weird.
+/*    transform(
             line.begin(), line.end(), value.begin(),
-            [](const auto token) {
+            [](const KindOfToken& token) {
                 return (char)token;
             }
     );
+    */
     cout << " to string: " << value << endl;
     return value;
 }
 
 void propertyTest(const int dotsBefore, const int dotsAfter){
      cout << "START for dots before: " << dotsBefore << " and dots after " << dotsAfter << endl;
-   Line lineBeforeMove =           dots(dotsBefore) + KindOfToken::Pacman + dots(dotsAfter);
+    Line lineBeforeMove =           dots(dotsBefore) + KindOfToken::Pacman + dots(dotsAfter);
     Line expectedLineAfterMove =    dots(dotsBefore) + KindOfToken::Empty + KindOfToken::Pacman + dots(dotsAfter - 1);
 
     auto lineAfterMove = tick(lineBeforeMove);
