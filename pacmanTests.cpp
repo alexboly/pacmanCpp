@@ -58,21 +58,42 @@ const Line dots(const int count){
     return Line(count, KindOfToken::Dot);
 }
 
-const string to_string(const Line& line){
+char to_char (const KindOfToken& token) {
+    return (char)token;
+}
+
+const string to_string_with_transform(const Line& line){
     string value;
-    value.reserve(line.size());
-    for(auto iter = line.begin(); iter != line.end(); ++iter){
+    value.resize(line.size());
+    transform(
+            line.begin(), line.end(), 
+            value.begin(),
+            to_char
+   );
+    
+    cout << "line size: " << line.size() << endl;
+    cout << "value size: " << value.size() << endl;
+    cout << " to string: " << value << endl;
+    return value;
+}
+
+const string to_string_with_for(const Line& line){
+    string value;
+    for(auto iter = value.begin(); iter != value.end(); ++iter){
         value.push_back((char)*iter);
     }
+    return value;
+}
 
-    // This transform doesn't work as expected; it returns empty string, but data() and c_str() are set correctly. Rly weird.
-/*    transform(
-            line.begin(), line.end(), value.begin(),
-            [](const KindOfToken& token) {
-                return (char)token;
+const string to_string_with_foreach(const Line& line){
+    string value;
+    value.resize(line.size());
+    for_each(
+            line.begin(), line.end(), 
+            [&](const KindOfToken& token){
+                value.push_back((char)token);
             }
     );
-    */
     cout << " to string: " << value << endl;
     return value;
 }
@@ -86,8 +107,8 @@ void propertyTest(const int dotsBefore, const int dotsAfter){
 
     CHECK(lineAfterMove == expectedLineAfterMove);
 
-    cout << " Line before move: " << to_string(lineBeforeMove) << endl;
-    cout << " Line after move: " << to_string(lineAfterMove) << endl;
+    cout << " Line before move: " << to_string_with_transform(lineBeforeMove) << endl;
+    cout << " Line after move: " << to_string_with_transform(lineAfterMove) << endl;
     cout << "DONE for dots before: " << dotsBefore << " and dots after " << dotsAfter << endl;
 }
 
