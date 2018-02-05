@@ -11,7 +11,6 @@ enum class KindOfToken : char {
     Pacman = '>'
 };
 
-
 typedef vector<KindOfToken> Line;
 
 template<typename SourceCollection, typename DestinationCollection, typename Lambda>
