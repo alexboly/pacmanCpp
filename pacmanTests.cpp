@@ -58,23 +58,22 @@ const Line dots(const int count){
     return Line(count, KindOfToken::Dot);
 }
 
-char to_char (const KindOfToken& token) {
-    return (char)token;
+template<typename SourceCollection, typename DestinationCollection, typename Lambda>
+const DestinationCollection allocateAndTransform(const SourceCollection& source, Lambda&& transformation){
+    DestinationCollection result;
+    result.resize(source.size());
+    transform(
+            source.begin(), source.end(),
+            result.begin(),
+            transformation
+    );
+    return result;
 }
 
 const string to_string_with_transform(const Line& line){
-    string value;
-    value.resize(line.size());
-    transform(
-            line.begin(), line.end(), 
-            value.begin(),
-            to_char
-   );
-    
-    cout << "line size: " << line.size() << endl;
-    cout << "value size: " << value.size() << endl;
-    cout << " to string: " << value << endl;
-    return value;
+    return allocateAndTransform<Line, string>(line, 
+            [](const KindOfToken& token){ return (char)token; }
+    );
 }
 
 const string to_string_with_for(const Line& line){
@@ -87,14 +86,12 @@ const string to_string_with_for(const Line& line){
 
 const string to_string_with_foreach(const Line& line){
     string value;
-    value.resize(line.size());
     for_each(
             line.begin(), line.end(), 
             [&](const KindOfToken& token){
                 value.push_back((char)token);
             }
     );
-    cout << " to string: " << value << endl;
     return value;
 }
 
