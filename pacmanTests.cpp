@@ -51,7 +51,6 @@ const string to_string_with_foreach(const Line& line){
     return value;
 }
 
-
 const Line operator+(const Line& line, const KindOfToken& token){
     Line newLine(line);
     newLine.push_back(token);
